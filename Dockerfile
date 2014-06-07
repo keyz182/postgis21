@@ -39,7 +39,7 @@ USER postgres
 #       allows the RUN command to span multiple lines.
 RUN    /etc/init.d/postgresql start &&\
     psql --command "CREATE USER docker WITH SUPERUSER PASSWORD 'docker';" &&\
-    createdb --encoding='utf-8' --locale=en_US.utf8 -O docker docker &&\
+    createdb --encoding='utf-8' --template=template0 -O docker docker &&\
     psql -d postgres -c "UPDATE pg_database SET datistemplate='true' WHERE datname='docker'" &&\
     psql -d docker -f /usr/share/postgresql/9.3/extension/postgis--2.1.3.sql &&\
     psql -d docker -c "GRANT ALL ON geometry_columns TO PUBLIC;" &&\ 
